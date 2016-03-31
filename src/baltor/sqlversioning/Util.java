@@ -1,5 +1,6 @@
 package baltor.sqlversioning;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -9,13 +10,20 @@ import java.sql.Statement;
 
 public class Util {
 
-	public static void patchItemNames() {
+	public static void listItems() {
 		
 		Connection c = null;
 		
 		try {
 			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:assets/itempatch.db");
+
+			// Check if running from a jar so you know where to look for the database
+			if (new File("assets/itempatch.db").exists()) {
+			    c = DriverManager.getConnection("jdbc:sqlite:assets/itempatch.db");
+			} else {
+			    c = DriverManager.getConnection("jdbc:sqlite::resource:assets/itempatch.db");
+			}
+			
 			c.setAutoCommit(false);
 			System.out.println("Opened database successfully");
 			
@@ -34,14 +42,14 @@ public class Util {
 	public static void queryDatabase(Connection c, String query) {
 		try {
 			Statement stmt = null;
-		    
+			
 			stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			
 			while (rs.next()) {
 				int itemID = rs.getInt("item_id");
 				String patchedName = rs.getString("patched_name");
-				System.out.println("item_name[" + itemID + "] = \"" + patchedName + "\";");
+				System.out.println("Item " + itemID + " = \"" + patchedName + "\"");
 			}
 
 			rs.close();
