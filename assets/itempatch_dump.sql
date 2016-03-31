@@ -2285,4 +2285,7 @@ INSERT INTO "items" VALUES(1286,'Blessed Golden Bowl with plain water');
 INSERT INTO "items" VALUES(1287,'Golden Bowl with plain water');
 INSERT INTO "items" VALUES(1288,'Cape of legends');
 INSERT INTO "items" VALUES(1289,'Scythe');
+CREATE TABLE `potato` (
+	`asdf`	INTEGER
+);
 COMMIT;
