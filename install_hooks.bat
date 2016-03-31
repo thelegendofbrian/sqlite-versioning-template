@@ -9,12 +9,14 @@ echo "tools/sqlite3.exe" assets/itempatch.db .dump ^> assets/itempatch_dump.sql 
 echo Installing post-merge hook...
 (
 echo #!/bin/sh
+echo rm assets/itempatch.db
 echo "tools/sqlite3.exe" assets/itempatch.db ^< assets/itempatch_dump.sql
 ) > .git/hooks/post-merge
 
 echo Installing post-checkout hook...
 (
 echo #!/bin/sh
+echo rm assets/itempatch.db
 echo "tools/sqlite3.exe" assets/itempatch.db ^< assets/itempatch_dump.sql
 ) > .git/hooks/post-checkout
 
