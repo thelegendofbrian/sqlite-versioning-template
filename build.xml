@@ -35,7 +35,7 @@
 	<target name="runscript.unix">
 		<echo>This is an Unix machine.</echo>
 	   	<exec dir="." executable="/bin/sh">
-	     		<arg line="-c /test.bat"/>
+	     		<arg line="-c ./test.sh"/>
 		</exec>
 	</target>
 </project>
